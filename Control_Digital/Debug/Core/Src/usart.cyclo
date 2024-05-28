@@ -1,0 +1,8 @@
+../Core/Src/usart.c:26:1:__io_putchar	1
+../Core/Src/usart.c:37:6:vPrintNumber	1
+../Core/Src/usart.c:50:6:vPrintString	1
+../Core/Src/usart.c:63:6:vPrintStringAndNumber	1
+../Core/Src/usart.c:76:6:vPrintNewLine	1
+../Core/Src/usart.c:86:6:MX_USART3_UART_Init	2
+../Core/Src/usart.c:114:6:HAL_UART_MspInit	2
+../Core/Src/usart.c:144:6:HAL_UART_MspDeInit	2
