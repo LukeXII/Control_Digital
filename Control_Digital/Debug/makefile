@@ -65,7 +65,7 @@ main-build: Control_Digital.elf secondary-outputs
 
 # Tool invocations
 Control_Digital.elf Control_Digital.map: $(OBJS) $(USER_OBJS) C:\Users\Lucas\Desktop\Repos\Control_Digital\Control_Digital\STM32F429ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "Control_Digital.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\Lucas\Desktop\Repos\Control_Digital\Control_Digital\STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Control_Digital.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+	arm-none-eabi-gcc -o "Control_Digital.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\Lucas\Desktop\Repos\Control_Digital\Control_Digital\STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Control_Digital.map" -Wl,--gc-sections -static -L"C:\Users\Lucas\Desktop\Repos\Control_Digital\Control_Digital\Drivers\CMSIS\Lib\GCC" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

@@ -3,6 +3,7 @@
 "./Core/Src/dac.o"
 "./Core/Src/freertos.o"
 "./Core/Src/gpio.o"
+"./Core/Src/identification_ls.o"
 "./Core/Src/main.o"
 "./Core/Src/stm32f4xx_hal_msp.o"
 "./Core/Src/stm32f4xx_it.o"
