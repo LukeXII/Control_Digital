@@ -9,9 +9,6 @@
 
 /*=====[Inclusions of private function dependencies]=========================*/
 
-//#include <stdlib.h>
-//#include "arm_math.h"
-
 #include "identification_ls.h"
 
 /*=====[Definition macros of private constants]==============================*/

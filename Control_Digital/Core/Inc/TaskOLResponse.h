@@ -5,8 +5,8 @@
  *      Author: Lucas
  */
 
-#ifndef INC_TASKIDENTIFICATION_H_
-#define INC_TASKIDENTIFICATION_H_
+#ifndef INC_TASKOLRESPONSE_H_
+#define INC_TASKOLRESPONSE_H_
 
 #include "FreeRTOS.h"
 #include "task.h"
@@ -15,16 +15,12 @@
 #include "dac.h"
 #include "usart.h"
 
-#define WAVEFORM_DEBUG	1
-
 extern DAC_HandleTypeDef hdac;
 
 #define	LOOP_SAMPLE_TIME	50
-#define DAC_REFERENCE_VALUE_LOW		1427
-#define DAC_REFERENCE_VALUE_HIGH	2668
+#define SQUARE_VALUE_1V		1241
+#define SQUARE_VALUE_2V		2482
 
-void TaskIdentification(void * argument);
-void receiveData (float * buffer);
-void console_print (float * buffer);
+void TaskOLResponse(void * argument);
 
 #endif /* INC_TASKIDENTIFICATION_H_ */

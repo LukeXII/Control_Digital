@@ -1,4 +1,5 @@
 "./Core/Src/TaskIdentification.o"
+"./Core/Src/TaskOLResponse.o"
 "./Core/Src/adc.o"
 "./Core/Src/dac.o"
 "./Core/Src/freertos.o"

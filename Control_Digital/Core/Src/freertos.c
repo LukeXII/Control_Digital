@@ -23,6 +23,8 @@
 #include "main.h"
 #include "cmsis_os.h"
 #include "TaskIdentification.h"
+#include "TaskOLResponse.h"
+#include "identification_ls.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -47,12 +49,21 @@
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
 
+extern t_ILSdata * tILS1;
+
 /* USER CODE END Variables */
 /* Definitions for defaultTask */
 osThreadId_t TaskIdentificationHandle;
+osThreadId_t TaskOLResponseHandle;
 
-const osThreadAttr_t defaultTask_attributes = {
-  .name = "defaultTask",
+const osThreadAttr_t IdentificationTask_attributes = {
+  .name = "Identification_Task",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityNormal,
+};
+
+const osThreadAttr_t OLResponseTask_attributes = {
+  .name = "OLResponse_Task",
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityNormal,
 };
@@ -92,7 +103,8 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* creation of defaultTask */
-	TaskIdentificationHandle = osThreadNew(TaskIdentification, NULL, &defaultTask_attributes);
+	TaskIdentificationHandle = osThreadNew(TaskIdentification, (void*)tILS1, &IdentificationTask_attributes);
+	//TaskOLResponseHandle = osThreadNew(TaskOLResponse, NULL, &OLResponseTask_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */

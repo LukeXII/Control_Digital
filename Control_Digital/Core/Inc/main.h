@@ -35,6 +35,8 @@ extern "C" {
 #include "gpio.h"
 #include "arm_math.h"
 #include <stdlib.h>
+#include "identification_ls.h"
+#include "TaskIdentification.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
