@@ -35,7 +35,7 @@ grid on
 %%
 % Discretizacion de la planta teorica para comparar con identificacion
 
-ts_ident = 20;          % tiempo de sampleo en identificacion (en ms)
+ts_ident = 15;          % tiempo de sampleo en identificacion (en ms)
 s_disc = c2d(s, ts_ident/1000, 'foh');
 
 figure(3)
@@ -46,13 +46,11 @@ grid on
 %%
 % Analisis valores obtenidos en identificacion
 
-s_ident_disc = tf([0 0.238 0.087],[1 -0.702 0.026], ts_ident/1000);
+%[0 0.164 0.073],[1 -0.856 0.094]
+% N = 100, ts = 15 ms
+s_ident_disc = tf([0 0.164 0.073],[1 -0.856 0.094], ts_ident/1000);
 [polos_disc_ident, ~] = pzmap(s_ident_disc);
 polos_disc_teo
 polos_disc_ident
 
-%p1 = (2/(ts_ident/1000))*((polos_disc_ident - 1)/(polos_disc_ident +1))
-%p2 = (2/(ts_ident/1000))*((polos_disc_teo - 1)/(polos_disc_teo +1))
-
-p1 = log(polos_disc_teo)/(ts_ident/1000)
-p2 = log(polos_disc_ident)/(ts_ident/1000)
+polos_cont_ident = log(polos_disc_ident)/(ts_ident/1000)

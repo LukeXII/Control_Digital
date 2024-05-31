@@ -2466,11 +2466,11 @@ int main(void)
  80016b4:	4603      	mov	r3, r0
  80016b6:	4a08      	ldr	r2, [pc, #32]	; (80016d8 <main+0x48>)
  80016b8:	6013      	str	r3, [r2, #0]
-  ILS_Init(tILS1, 100, 20, receiveData);
+  ILS_Init(tILS1, 100, 15, receiveData);
  80016ba:	4b07      	ldr	r3, [pc, #28]	; (80016d8 <main+0x48>)
  80016bc:	6818      	ldr	r0, [r3, #0]
  80016be:	4b07      	ldr	r3, [pc, #28]	; (80016dc <main+0x4c>)
- 80016c0:	2214      	movs	r2, #20
+ 80016c0:	220f      	movs	r2, #15
  80016c2:	2164      	movs	r1, #100	; 0x64
  80016c4:	f7ff fe6a 	bl	800139c <ILS_Init>
 
