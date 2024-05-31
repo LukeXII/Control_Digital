@@ -24,6 +24,7 @@
 #include "cmsis_os.h"
 #include "TaskIdentification.h"
 #include "TaskOLResponse.h"
+#include "TaskPIDControl.h"
 #include "identification_ls.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -55,6 +56,7 @@ extern t_ILSdata * tILS1;
 /* Definitions for defaultTask */
 osThreadId_t TaskIdentificationHandle;
 osThreadId_t TaskOLResponseHandle;
+osThreadId_t TaskPIDControlHandle;
 
 const osThreadAttr_t IdentificationTask_attributes = {
   .name = "Identification_Task",
@@ -64,6 +66,12 @@ const osThreadAttr_t IdentificationTask_attributes = {
 
 const osThreadAttr_t OLResponseTask_attributes = {
   .name = "OLResponse_Task",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityNormal,
+};
+
+const osThreadAttr_t PIDControlTask_attributes = {
+  .name = "PIDControl_Task",
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityNormal,
 };
@@ -104,7 +112,8 @@ void MX_FREERTOS_Init(void) {
   /* Create the thread(s) */
   /* creation of defaultTask */
 	//TaskIdentificationHandle = osThreadNew(TaskIdentification, (void*)tILS1, &IdentificationTask_attributes);
-	TaskOLResponseHandle = osThreadNew(TaskOLResponse, NULL, &OLResponseTask_attributes);
+	//TaskOLResponseHandle = osThreadNew(TaskOLResponse, NULL, &OLResponseTask_attributes);
+	TaskPIDControlHandle = osThreadNew(TaskPIDControl, NULL, &PIDControlTask_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */

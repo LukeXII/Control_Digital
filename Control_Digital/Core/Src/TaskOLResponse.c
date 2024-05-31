@@ -10,7 +10,7 @@
 void TaskOLResponse(void * argument)
 {
 	uint32_t xLastWakeTime, outputSample;
-	uint16_t sampleIndex = 0, squareValue = SQUARE_VALUE_1V;
+	uint16_t squareValue = SQUARE_VALUE_1V;
 	uint8_t samplesCounter = 0;
 
 	HAL_DAC_Start(&hdac, DAC_CHANNEL_1);

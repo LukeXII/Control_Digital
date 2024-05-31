@@ -3,7 +3,7 @@
 clc
 clear all
 
-filename = 'step_response.csv';
+filename = 'putty.csv';
 ts = 0.008;
 
 data = csvread(filename);
@@ -11,8 +11,10 @@ data = csvread(filename);
 res = 3.3/4095;
 data = data*res;
 
-risetime(data(:,2), 1/ts);
-rt = mean(risetime(data(:,2), 1/ts))
+plot(data)
+
+risetime(data(:,2), 1/ts)
+%rt = mean(risetime(data(:,2), 1/ts))
 
 %%
 % Planta teorica (tiempo continuo)
