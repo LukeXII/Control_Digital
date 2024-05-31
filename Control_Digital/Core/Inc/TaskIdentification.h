@@ -15,7 +15,7 @@
 #include "dac.h"
 #include "usart.h"
 
-#define WAVEFORM_DEBUG	1
+#define WAVEFORM_DEBUG	0
 
 extern DAC_HandleTypeDef hdac;
 

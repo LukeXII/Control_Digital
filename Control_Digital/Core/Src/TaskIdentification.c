@@ -14,8 +14,10 @@ void TaskIdentification(void * argument)
 
 	HAL_DAC_Start(&hdac, DAC_CHANNEL_1);
 
+#if (WAVEFORM_DEBUG == 1)
 	vPrintString("start--------");
 	vPrintNewLine();
+#endif
 
 	xLastWakeTime = xTaskGetTickCount();
 
