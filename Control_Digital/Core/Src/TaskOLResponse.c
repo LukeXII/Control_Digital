@@ -16,7 +16,7 @@ void TaskOLResponse(void * argument)
 	HAL_DAC_Start(&hdac, DAC_CHANNEL_1);
 
 	HAL_DAC_SetValue(&hdac, DAC_CHANNEL_1, DAC_ALIGN_12B_R, squareValue);
-	vTaskDelay(2000);
+	vTaskDelay(1000);
 
 	vPrintString("start--------");
 	vPrintNewLine();
@@ -26,7 +26,7 @@ void TaskOLResponse(void * argument)
 	for(;;)
 	{
 
-		if(samplesCounter == 20)
+		if(samplesCounter == 100)
 		{
 			(squareValue == SQUARE_VALUE_1V) ? (squareValue = SQUARE_VALUE_2V) : (squareValue = SQUARE_VALUE_1V);
 			samplesCounter = 0;

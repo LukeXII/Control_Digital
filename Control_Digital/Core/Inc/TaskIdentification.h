@@ -19,7 +19,6 @@
 
 extern DAC_HandleTypeDef hdac;
 
-#define	LOOP_SAMPLE_TIME	50
 #define DAC_REFERENCE_VALUE_LOW		1427
 #define DAC_REFERENCE_VALUE_HIGH	2668
 

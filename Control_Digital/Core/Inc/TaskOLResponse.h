@@ -17,7 +17,7 @@
 
 extern DAC_HandleTypeDef hdac;
 
-#define	LOOP_SAMPLE_TIME	50
+#define	LOOP_SAMPLE_TIME	8
 #define SQUARE_VALUE_1V		1241
 #define SQUARE_VALUE_2V		2482
 
