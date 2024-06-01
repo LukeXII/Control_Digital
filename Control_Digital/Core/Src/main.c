@@ -95,7 +95,7 @@ int main(void)
   /* USER CODE END 2 */
 
   tILS1 = (t_ILSdata*) pvPortMalloc (sizeof(t_ILSdata));
-  ILS_Init(tILS1, 100, 15, receiveData);
+  ILS_Init(tILS1, 140, 15, receiveData);
 
   /* Init scheduler */
   osKernelInitialize();  /* Call init function for freertos objects (in freertos.c) */

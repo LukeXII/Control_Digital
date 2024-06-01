@@ -12,9 +12,9 @@ static PIDController pid = {
     .bypassPid = 0,
 
     // Control parameters
-    .Kp = 0.4,
-    .Ki = 20.0,
-    .Kd = 0.004,
+    .Kp = 1.0,
+    .Ki = 32.0,
+    .Kd = 0.005,
     .tau = 1.0 * LOOP_SAMPLING_TIME/1000,
     .limMin = -5,
     .limMax = 5,
@@ -66,7 +66,8 @@ void TaskPIDControl(void * argument)
 
 		vPrintNumber(setpoint);
 		vPrintStringAndNumber(",", outputSample);
-		//vPrintStringAndNumber("cont", (float)controlSignal/RESOLUTION_LSB);
+		vPrintStringAndNumber(",", (uint32_t)((float)controlSignal/res));
+		vPrintNewLine();
 
 		vTaskDelayUntil(&xLastWakeTime, LOOP_SAMPLING_TIME);
 

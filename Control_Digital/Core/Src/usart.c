@@ -66,7 +66,7 @@ void vPrintStringAndNumber( const char *pcString, uint32_t ulValue )
 	exclusion. */
 	taskENTER_CRITICAL();
 	{
-		printf( "%s %lu\r\n", pcString, ulValue );
+		printf( "%s %lu", pcString, ulValue );
 		fflush( stdout );
 	}
 	taskEXIT_CRITICAL();

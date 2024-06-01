@@ -1,22 +1,4 @@
 %%
-% Calculo y ploteo de rise time practico
-clc
-clear all
-
-filename = 'putty.csv';
-ts = 0.008;
-
-data = csvread(filename);
-
-res = 3.3/4095;
-data = data*res;
-
-plot(data)
-
-risetime(data(:,2), 1/ts)
-%rt = mean(risetime(data(:,2), 1/ts))
-
-%%
 % Planta teorica (tiempo continuo)
 
 C = 1e-6;
@@ -50,8 +32,11 @@ grid on
 % Analisis valores obtenidos en identificacion
 
 %[0 0.164 0.073],[1 -0.856 0.094]
-% N = 100, ts = 15 ms
+% N = 140, ts = 15 ms
 s_ident_disc = tf([0 0.164 0.073],[1 -0.856 0.094], ts_ident/1000);
+pzmap(s_ident_disc)
+grid on
+
 [polos_disc_ident, ~] = pzmap(s_ident_disc);
 polos_disc_teo
 polos_disc_ident
