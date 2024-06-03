@@ -7,6 +7,8 @@
 
 #include "TaskPolePlacement.h"
 
+static float k_mat[2] = {0.0, 0.0};
+
 void TaskPolePlacement(void * argument)
 {
 	uint32_t xLastWakeTime, outputSample;
@@ -26,7 +28,6 @@ void TaskPolePlacement(void * argument)
 	for(;;)
 	{
 
-
 		HAL_ADC_Start(&hadc1);
 		HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
 		outputSample = HAL_ADC_GetValue(&hadc1);
@@ -35,7 +36,8 @@ void TaskPolePlacement(void * argument)
 		HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
 		outputSample = HAL_ADC_GetValue(&hadc1);
 
-
+		// computa el valor de la señal de control
+		//controlSignal =
 
 		HAL_DAC_SetValue(&hdac, DAC_CHANNEL_1, DAC_ALIGN_12B_R, (uint32_t)((float)controlSignal/res) );
 

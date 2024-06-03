@@ -36,7 +36,6 @@ void TaskPIDControl(void * argument)
 	uint32_t xLastWakeTime, outputSample;
 	uint16_t setpoint = SQUARE_VALUE_2V;
 	float controlSignal, res = 3.3/4095.0;
-	uint8_t samplesCounter = 0;
 
 	HAL_DAC_Start(&hdac, DAC_CHANNEL_1);
 
@@ -51,12 +50,6 @@ void TaskPIDControl(void * argument)
 	for(;;)
 	{
 
-//		if(samplesCounter == 100)
-//		{
-//			(squareValue == SQUARE_VALUE_1V) ? (squareValue = SQUARE_VALUE_2V) : (squareValue = SQUARE_VALUE_1V);
-//			samplesCounter = 0;
-//		}
-
 		HAL_ADC_Start(&hadc1);
 		outputSample = HAL_ADC_GetValue(&hadc1);
 
@@ -70,8 +63,6 @@ void TaskPIDControl(void * argument)
 		vPrintNewLine();
 
 		vTaskDelayUntil(&xLastWakeTime, LOOP_SAMPLING_TIME);
-
-		//samplesCounter++;
 
 	}
 
