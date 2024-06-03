@@ -38,6 +38,7 @@ extern "C" {
 #include "identification_ls.h"
 #include "TaskIdentification.h"
 #include "TaskPIDControl.h"
+#include "TaskPolePlacement.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */

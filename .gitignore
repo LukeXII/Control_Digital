@@ -54,3 +54,8 @@ dkms.conf
 *.list
 *.list
 *.asv
+*.list
+*.list
+*.cyclo
+*.mk
+*.list
