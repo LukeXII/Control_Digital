@@ -7,17 +7,15 @@
 
 #include "TaskPolePlacement.h"
 
-static float k_mat[2] = {0.0, 0.0};
-
 void TaskPolePlacement(void * argument)
 {
-	uint32_t xLastWakeTime, outputSample;
-	uint16_t setpoint = SQUARE_VALUE_2V;
-	float controlSignal, res = 3.3/4095.0;
+	uint32_t xLastWakeTime, x1_sample, x2_sample, controlSignal_DAC;
+	uint16_t setpoint = SQUARE_VALUE_1V;
+	float controlSignal;
 
 	HAL_DAC_Start(&hdac, DAC_CHANNEL_1);
 
-	HAL_DAC_SetValue(&hdac, DAC_CHANNEL_1, DAC_ALIGN_12B_R, SQUARE_VALUE_1V);
+	HAL_DAC_SetValue(&hdac, DAC_CHANNEL_1, DAC_ALIGN_12B_R, SQUARE_VALUE_0V);
 	vTaskDelay(1000);
 
 	vPrintString("start--------");
@@ -28,22 +26,27 @@ void TaskPolePlacement(void * argument)
 	for(;;)
 	{
 
+		// Toma la muestra de la salida (X2)
 		HAL_ADC_Start(&hadc1);
 		HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
-		outputSample = HAL_ADC_GetValue(&hadc1);
+		x1_sample = HAL_ADC_GetValue(&hadc1);
 
+		// Toma la muestra de X1
 		HAL_ADC_Start(&hadc1);
 		HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
-		outputSample = HAL_ADC_GetValue(&hadc1);
+		x2_sample = HAL_ADC_GetValue(&hadc1);
 
-		// computa el valor de la señal de control
-		//controlSignal =
+		// computa el valor de la ley de control
+		controlSignal = Kf - K1*((float)(x1_sample)*ADC_RESOLUTION) - K2*((float)(x2_sample)*ADC_RESOLUTION);
 
-		HAL_DAC_SetValue(&hdac, DAC_CHANNEL_1, DAC_ALIGN_12B_R, (uint32_t)((float)controlSignal/res) );
+		controlSignal_DAC = (uint32_t)((float)controlSignal/res);
+
+		HAL_DAC_SetValue(&hdac, DAC_CHANNEL_1, DAC_ALIGN_12B_R, controlSignal_DAC);
 
 		vPrintNumber(setpoint);
-		vPrintStringAndNumber(",", outputSample);
-		vPrintStringAndNumber(",", (uint32_t)((float)controlSignal/res));
+		vPrintStringAndNumber(",", x1_sample);
+		//vPrintStringAndNumber(",", x2_sample);
+		//vPrintStringAndNumber(",", controlSignal_DAC);
 		vPrintNewLine();
 
 		vTaskDelayUntil(&xLastWakeTime, LOOP_SAMPLING_TIME);
