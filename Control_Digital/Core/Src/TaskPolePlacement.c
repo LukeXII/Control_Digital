@@ -39,7 +39,7 @@ void TaskPolePlacement(void * argument)
 		// computa el valor de la ley de control
 		controlSignal = Kf - K1*((float)(x1_sample)*ADC_RESOLUTION) - K2*((float)(x2_sample)*ADC_RESOLUTION);
 
-		controlSignal_DAC = (uint32_t)((float)controlSignal/res);
+		controlSignal_DAC = (uint32_t)((float)controlSignal/ADC_RESOLUTION);
 
 		HAL_DAC_SetValue(&hdac, DAC_CHANNEL_1, DAC_ALIGN_12B_R, controlSignal_DAC);
 

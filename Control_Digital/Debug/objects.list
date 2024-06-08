@@ -1,5 +1,6 @@
 "./Core/Src/TaskIdentification.o"
 "./Core/Src/TaskOLResponse.o"
+"./Core/Src/TaskObserver.o"
 "./Core/Src/TaskPIDControl.o"
 "./Core/Src/TaskPolePlacement.o"
 "./Core/Src/adc.o"

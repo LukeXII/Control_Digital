@@ -39,6 +39,7 @@ extern "C" {
 #include "TaskIdentification.h"
 #include "TaskPIDControl.h"
 #include "TaskPolePlacement.h"
+#include "TaskObserver.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */

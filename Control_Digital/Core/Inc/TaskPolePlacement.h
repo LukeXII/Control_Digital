@@ -20,10 +20,11 @@ extern DAC_HandleTypeDef hdac;
 #define	LOOP_SAMPLING_TIME	8.0
 #define SQUARE_VALUE_1V		1241
 #define SQUARE_VALUE_0V		1
-#define K1					0.4778
-#define K2					0.1
-#define Kf					1.61
 #define ADC_RESOLUTION		3.3/4095.0
+//#define K1					0.4778
+//#define K2					0.1
+//#define Kf					1.61
+
 
 void TaskPolePlacement(void * argument);
 

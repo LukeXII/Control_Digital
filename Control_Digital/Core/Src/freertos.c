@@ -26,6 +26,7 @@
 #include "TaskOLResponse.h"
 #include "TaskPIDControl.h"
 #include "TaskPolePlacement.h"
+#include "TaskObserver.h"
 #include "identification_ls.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -59,6 +60,7 @@ osThreadId_t TaskIdentificationHandle;
 osThreadId_t TaskOLResponseHandle;
 osThreadId_t TaskPIDControlHandle;
 osThreadId_t TaskPolePlacementHandle;
+osThreadId_t TaskObserverHandle;
 
 const osThreadAttr_t IdentificationTask_attributes = {
   .name = "Identification_Task",
@@ -80,6 +82,12 @@ const osThreadAttr_t PIDControlTask_attributes = {
 
 const osThreadAttr_t PolePlacementTask_attributes = {
   .name = "PolePlacement_Task",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityNormal,
+};
+
+const osThreadAttr_t ObserverTask_attributes = {
+  .name = "Observer_Task",
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityNormal,
 };
@@ -122,7 +130,8 @@ void MX_FREERTOS_Init(void) {
 	//TaskIdentificationHandle = osThreadNew(TaskIdentification, (void*)tILS1, &IdentificationTask_attributes);
 	//TaskOLResponseHandle = osThreadNew(TaskOLResponse, NULL, &OLResponseTask_attributes);
 	//TaskPIDControlHandle = osThreadNew(TaskPIDControl, NULL, &PIDControlTask_attributes);
-	TaskPolePlacementHandle = osThreadNew(TaskPolePlacement, NULL, &PolePlacementTask_attributes);
+	//TaskPolePlacementHandle = osThreadNew(TaskPolePlacement, NULL, &PolePlacementTask_attributes);
+	TaskObserverHandle = osThreadNew(TaskObserver, NULL, &ObserverTask_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
