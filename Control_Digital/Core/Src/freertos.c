@@ -130,8 +130,8 @@ void MX_FREERTOS_Init(void) {
 	//TaskIdentificationHandle = osThreadNew(TaskIdentification, (void*)tILS1, &IdentificationTask_attributes);
 	//TaskOLResponseHandle = osThreadNew(TaskOLResponse, NULL, &OLResponseTask_attributes);
 	//TaskPIDControlHandle = osThreadNew(TaskPIDControl, NULL, &PIDControlTask_attributes);
-	//TaskPolePlacementHandle = osThreadNew(TaskPolePlacement, NULL, &PolePlacementTask_attributes);
-	TaskObserverHandle = osThreadNew(TaskObserver, NULL, &ObserverTask_attributes);
+	TaskPolePlacementHandle = osThreadNew(TaskPolePlacement, NULL, &PolePlacementTask_attributes);
+	//TaskObserverHandle = osThreadNew(TaskObserver, NULL, &ObserverTask_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */

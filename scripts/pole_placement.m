@@ -1,4 +1,6 @@
 %% Construccion de espacio de estados
+clc
+clear all
 
 C = 1e-6;
 R1 = 10e3;
@@ -17,28 +19,34 @@ pole(sys_ss_disc)
 
 %% Pole placement sin observador
 
-P = [0.78 0.1];
-%P = [0.68 0.7];
+rt = 0.075;
+
+polo_deseado = 0.35/rt;
+polo_deseado_disc = exp(-polo_deseado*(2*pi)*ts_cont/1000);
+
+%P = [0.1 0.75];            % polo dominante
+P = [0.643 0.642];
 
 K = place(sys_ss_disc.A, sys_ss_disc.B, P)
 
 Acl = sys_ss_disc.A - sys_ss_disc.B*K;
 
-syscl = ss(Acl, sys_ss_disc.B, sys_ss_disc.C, sys_ss_disc.D, ts_cont/1000);
-Pcl = pole(syscl)
+kf = 1/(sys_ss_disc.C*(eye(2)-Acl)^(-1)*sys_ss_disc.B)
+
+syscl = ss(Acl, kf*sys_ss_disc.B, sys_ss_disc.C, sys_ss_disc.D, ts_cont/1000);
+Pcl = pole(syscl);
 
 figure(1)
-step(syscl)
+step(d2c(syscl))
+stepinfo(d2c(syscl))
 
 figure(2)
-step(d2c(syscl, 'foh'))
-stepinfo(d2c(syscl, 'foh'))
+step(syscl)
+stepinfo(syscl)
+grid on
+hold on
 
-polos_cont_pp = log(Pcl)/(ts_cont/1000)/(2*pi)
-
-kf = -1/(sys_ss_disc.C*inv(Acl)*sys_ss_disc.B)
-
-%% Pole placement con observador
+polos_cont_pp = log(Pcl)/(ts_cont/1000)/(2*pi);         % polos del lazo cerrado (en Hz)
 
 %%
 
@@ -50,7 +58,16 @@ data = csvread(filename);
 res = 3.3/4095;
 data = data*res;
 
-%plot(data)
+% figure(2)
+% step(d2c(syscl))
+% stepinfo(d2c(syscl))
+% 
+% figure(3)
+% stairs(0:ts:0.280, data(:,4), '--.r')
+% hold on
+% grid on
+% plot(0:ts:0.280, data(:,2), 'b--x')
+% plot(0:ts:0.280, data(:,3), 'g--x')
 
 risetime(data(:,2), 1/ts)
 %rt = mean(risetime(data(:,2), 1/ts))

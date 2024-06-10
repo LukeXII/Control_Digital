@@ -11,7 +11,7 @@ void TaskObserver(void * argument)
 {
 	uint32_t xLastWakeTime, x2_sample, controlSignal_DAC;
 	uint16_t setpoint = SQUARE_VALUE_1V;
-	float controlSignal, x1_hat = 0.0, x1_hat_next = 0.0, x2_hat = 0.0, x2_hat_next = 0.0, res = 3.3/4095.0;
+	float controlSignal, x1_hat, x1_hat_next = 0.0, x2_hat, x2_hat_next = 0.0, res = 3.3/4095.0;
 
 	HAL_DAC_Start(&hdac, DAC_CHANNEL_1);
 
@@ -49,9 +49,8 @@ void TaskObserver(void * argument)
 
 		vPrintNumber(setpoint);
 		vPrintStringAndNumber(",", x2_sample);
-		//vPrintStringAndNumber(",", x1_sample);
+		//vPrintStringAndNumber(",", x1_hat);
 		//vPrintStringAndNumber(",", controlSignal_DAC);
-		//vPrintStringAndNumber(",", (uint32_t)(controlSignal*10));
 		vPrintNewLine();
 
 		vTaskDelayUntil(&xLastWakeTime, LOOP_SAMPLING_TIME);

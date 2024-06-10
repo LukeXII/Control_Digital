@@ -22,10 +22,12 @@ sysd = c2d(sys,h);
 
 P = pole(sys);
 
-Po = [-10*max(abs(P));-11*max(abs(P))];
+%Po = [-10*max(abs(P));-11*max(abs(P))];
 
 %Pod = exp(Po*h);
 Pod = [0.2;0.21];
+
+Pod_frec = log(Pod)/h/(2*pi)            % Frecuencia de polos del observador (Hz)
 
 L = place(sysd.A',sysd.C',Pod)';
 
@@ -60,6 +62,8 @@ plot(t,y,t,y_est,'LineWidth',1)
 %% Realimentación de estados con observador
 %Pd = exp(P*1.3*h);
 Pd = [0.78 0.1];
+
+Pd_frec = log(Pd)/h/(2*pi)            % Frecuencia de los polos ubicados (Hz)
 
 K = place(sysd.A,sysd.B,Pd);
 
