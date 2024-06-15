@@ -22,14 +22,11 @@ sysd = c2d(sys,h);
 
 P = pole(sys);
 
-%Po = [-10*max(abs(P));-11*max(abs(P))];
+Pod = [0.1, 0.11];
 
-%Pod = exp(Po*h);
-Pod = [0.2;0.21];
+Pod_frec = log(Pod)/h/(2*pi);            % Frecuencia de polos del observador (Hz)
 
-Pod_frec = log(Pod)/h/(2*pi)            % Frecuencia de polos del observador (Hz)
-
-L = place(sysd.A',sysd.C',Pod)';
+L = place(sysd.A',sysd.C',Pod)'
 
 n = length(sysd.A);
 N = length(t);
@@ -41,7 +38,7 @@ y_est = zeros(1,N);
 u = ones(1,N);
 
 % x(:,1) = [0.02;0.01];
-x_est(:,1) = [0.01;-0.02];
+x_est(:,1) = [0;0];
 
 for i=1:length(t)
     % sist 'real'
@@ -52,20 +49,21 @@ for i=1:length(t)
     y_est(i) = sysd.C*x_est(:,i);
 end
 
+x_est(:,52) = [];
 close all
 plot(t,y,t,y_est,'LineWidth',1)
-% figure
-% plot(t,x_est(1,2:end),t,x_est(2,2:end))
-% hold on
-% plot(t,x_est(1,2:end),t,x_est(2,2:end))
+ figure
+ plot(t,x_est(1,1:end),t,x_est(2,1:end))
+ %hold on
+ %plot(t,x_est(1,2:end),t,x_est(2,2:end))
 
 %% Realimentación de estados con observador
-%Pd = exp(P*1.3*h);
-Pd = [0.78 0.1];
 
-Pd_frec = log(Pd)/h/(2*pi)            % Frecuencia de los polos ubicados (Hz)
+Pd = [0.643 0.642];
 
-K = place(sysd.A,sysd.B,Pd);
+Pd_frec = log(Pd)/h/(2*pi);            % Frecuencia de los polos ubicados (Hz)
+
+K = place(sysd.A,sysd.B,Pd)
 
 x_lc = zeros(n,N);
 y_lc = zeros(1,N);
@@ -73,7 +71,7 @@ r    = ones(1,N);
 
 sysdlc = ss(sysd.A-sysd.B*K,sysd.B,sysd.C,sysd.D);
 g = sysdlc.C*(eye(2)-sysdlc.A)^(-1)*sysdlc.B;  % GEE, para sist. discreto
-Ko = 1/g;
+Ko = 1/g
 
 for i=1:length(t)
     u(i) = Ko*r(i) - K*x_est(:,i);
@@ -85,5 +83,22 @@ for i=1:length(t)
     y_est(i)     = sysd.C*x_est(:,i);
 end
 
+x_est(:,52) = [];
+
 close all
-plot(t,y,t,y_lc,t,y_est,'LineWidth',1)
+plot(t,x_est(1,:),t,x_est(2,:))
+%plot(t,y,t,y_lc,t,y_est,'LineWidth',1)
+
+%% Ploteo de variables de control con observador
+
+filename = 'mediciones_cont_obs.csv';
+ts = 0.008;
+
+data = csvread(filename);
+
+res = 3.3/4095;
+data = data*res;
+
+plot(data)
+
+%risetime(data(:,2), 1/ts)

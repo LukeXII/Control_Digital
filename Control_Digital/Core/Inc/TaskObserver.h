@@ -21,19 +21,23 @@ extern DAC_HandleTypeDef hdac;
 #define SQUARE_VALUE_1V			1241
 #define SQUARE_VALUE_0V			1
 #define ADC_RESOLUTION			3.3/4095.0
-#define K1						0.4778
-#define K2						0.1
-#define Kf						1.578
-#define L1						0.298
-#define L2						0.713
+
+// Constantes del observador y pole placement
+#define K1						-0.39
+#define K2						0.41
+#define Kf						1.02
+#define L1						0.56
+#define L2						0.91
+
+// Constantes del modelo del sistema
 #define A11						0.354
 #define A12						0.154
 #define A21						0.154
 #define A22						0.769
 #define B1						0.492
 #define B2						0.077
-#define C1						0
-#define C2						1
+#define C1						0.0
+#define C2						1.0
 
 void TaskObserver(void * argument);
 

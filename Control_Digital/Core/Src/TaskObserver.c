@@ -11,7 +11,7 @@ void TaskObserver(void * argument)
 {
 	uint32_t xLastWakeTime, x2_sample, controlSignal_DAC;
 	uint16_t setpoint = SQUARE_VALUE_1V;
-	float controlSignal, x1_hat, x1_hat_next = 0.0, x2_hat, x2_hat_next = 0.0, res = 3.3/4095.0;
+	float controlSignal = 0.0, x1_hat, x1_hat_next = 0.1, x2_hat, x2_hat_next = -0.1, res = 3.3/4095.0;
 
 	HAL_DAC_Start(&hdac, DAC_CHANNEL_1);
 
@@ -36,12 +36,13 @@ void TaskObserver(void * argument)
 		x1_hat = x1_hat_next;
 		x2_hat = x2_hat_next;
 
+		// estimacion de estados
+		x1_hat_next = A11*x1_hat + A12*x2_hat + B1*controlSignal + L1*(((float)x2_sample)*res - C2*x2_hat);
+		x2_hat_next = A21*x1_hat + A22*x2_hat + B2*controlSignal + L2*(((float)x2_sample)*res - C2*x2_hat);
+
 		// computa el valor de la ley de control
 		controlSignal = Kf - K1*x1_hat - K2*x2_hat;
 
-		// estimacion de estados
-		x1_hat_next = A11*x1_hat + A12*x2_hat + B1*controlSignal + L1*((float)(x2_sample)*ADC_RESOLUTION - C1*x1_hat);
-		x2_hat_next = A21*x1_hat + A22*x2_hat + B2*controlSignal + L2*((float)(x2_sample)*ADC_RESOLUTION - C2*x2_hat);
 
 		controlSignal_DAC = (uint32_t)(controlSignal/res);
 
@@ -49,8 +50,9 @@ void TaskObserver(void * argument)
 
 		vPrintNumber(setpoint);
 		vPrintStringAndNumber(",", x2_sample);
-		//vPrintStringAndNumber(",", x1_hat);
-		//vPrintStringAndNumber(",", controlSignal_DAC);
+		vPrintStringAndNumber(",", x1_hat/res);
+		vPrintStringAndNumber(",", x2_hat/res);
+		vPrintStringAndNumber(",", controlSignal_DAC);
 		vPrintNewLine();
 
 		vTaskDelayUntil(&xLastWakeTime, LOOP_SAMPLING_TIME);
